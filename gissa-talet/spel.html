@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>Mitt första JS-spel</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; marginTop: 50px; }
+        input, button { padding: 10px; fontSize: 16px; }
+    </style>
+</head>
+<body>
+
+    <h1>Gissa numret!</h1>
+    <p>Jag tänker på ett tal mellan 1 och 10. Gissa vilket!</p>
+
+    <!-- Här skriver spelaren in sin gissning -->
+    <input type="number" id="gissningInput" min="1" max="10">
+    <button onclick="kollaGissning()">Gissa!</button>
+
+    <!-- Här kommer resultatet att visas -->
+    <p>Resultat=</p>
+    <p id="resultatText"></p>
+    <!-- Vi sparar texten och siffran i samma stycke, men ger siffran ett eget ID -->
+    <p>Poäng: <span id="poang">0</span></p>
+
+
+    <script>
+        // JS: Vi sparar det hemliga numret (t.ex. 7)
+        let hemligtNummer = 4;
+        let poang = 0;
+        let poangElement = document.getElementById("poang");
+        poangElement.innerText = poang;
+        // JS: En funktion som körs när man klickar på knappen
+        function kollaGissning() {
+            // Hämta talet från input-rutan
+            let spelarensGissning = document.getElementById("gissningInput").value;
+            
+            // Hämta textrutan där vi vill skriva svaret
+            let resultatElement = document.getElementById("resultatText");
+
+            // JS: En if-sats för att se om gissningen är rätt!
+            if (spelarensGissning == hemligtNummer) {
+                resultatElement.innerText = "🎉 Rätt gissat! Du vann! Jag tänker på ett nytt tal!";
+                resultatElement.style.color = "green";
+                hemligtNummer = Math.floor(Math.random() * 10) + 1; // Randomiza ett nytt tal
+                poang = poang + 1
+                poangElement.innerText = poang;
+            } else {
+                resultatElement.innerText = "❌ Fel! Försök igen.";
+                resultatElement.style.color = "red";
+            }
+        }
+    </script>
+
+</body>
+</html>
